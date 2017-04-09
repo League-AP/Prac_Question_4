@@ -1,91 +1,127 @@
 <pre><code>
 
-Consider a program that models a dog kennel. A dog may be represented with the following interface:
+This question manipulates a string, a one-dimensional array, and a two-dimensional array. In parts (a) and (b), you will write methods to reverse a string and to create a palindrome from a given string. (A palindrome is a string that reads the same from right to left as from left to right. For example, "atoyota" and "dad" are palindromes.) In parts (c) and (d), you will replace the strings in a one-dimensional array and a two-dimensional array with palindrome versions of the strings.
 
-public interface Dog
+Consider the following incomplete StringUtil class, which contains three static methods: reverse, changeToPalindrome, and changeArrayToPalindromes.
+
+public class StringUtil
 {
-	/** @return the dog's name */
-	String getName();
-
-	/** @return the name of the dog's owner */
-	String getOwnerName();
-}
-
-A dog kennel consists of n numbered slots. Each slot can hold at most one dog. The slots are indexed from 0 to n − 1. No two dogs in the kennel have the same name, but two or more dogs may have the same owner.
-
-The declaration of the DogKennel class is shown below.
-
-public class DogKennel
-{
-	/** The slots in the kennel. Each array element contains a
-	 *  reference to a dog that is currently occupying that slot.
-	 *  A null value indicates an empty space.
+	/** Returns a string whose characters are in reverse order of str.
+	 *  Precondition:  str is not null.
+	 *  @param str the given string
+	 *  @return str in reverse order 
 	 */
-	private Dog[] slots;
+	public static String reverse(String str)
+	{ /* to be implemented in part(a) */}
 
-	/** Returns the name of the owner of the dog
-	 *  whose name is given. Returns null if the dog is not found.
-	 *  Precondition:  No two dogs in the kennel have the same name.
-	 *  @param name the name of the dog to find
-	 *  @return the name of the specified dog's owner;
-	 *  null, if no dog with the specified name is in the kennel
+	/** Returns a palindrome string, one that reads the same from
+	 *  right to left and left to right.
+	 *  Precondition:  str is not null and has n characters, n>=1.
+	 *  Postcondition:
+	 *   - Returned string is a palindrome with n characters, whose opening
+	 *     characters are the first n/2 characters of str if n is even.
+	 *   - If n is odd, the opening characters of the returned string
+	 *     are the first (n/2 + 1) characters of str.
+	 *  @param str the given string
+	 *  @return a palindrome version of str
 	 */
-	public String findOwner(String name)
-	{ /* to be implemented in part (a) */ }
-
-	/** Consolidates the kennel by moving dogs so that the dogs are in
-	 *  adjacent slots, starting at index 0, with no empty slot between
-	 *  any two dogs.
-	 *  Postcondition: The order of dogs is the same as before consolidation.
-	 */
-	public void moveTogether()
+	public static String changeToPalindrome(String str)
 	{ /* to be implemented in part (b) */ }
 
-	//There may be instance variables, constructors and methods
-	//that are not shown.
+	/** Changes each element of arr to be a palindrome.
+	 *  Precondition:  arr is an array of non-null strings.
+	 *  Postcondition: Each element of arr is a palindrome, as discussed in part (b).
+	 *  @param arr the array to be changed
+	 */
+	public static void changeArrayToPalindromes(String[] arr)
+	{ /* to be implemented in part (c) */ }
+
+	//Other methods not shown.
 }
 
 Part (a)
-Write the DogKennel method findOwner, which returns the name of the owner of the dog whose name is specified. Method findOwner should return null if the given dog is not found.
+Write the StringUtil method reverse, which reverses the characters of its String parameter. For example, a call to reverse("cat") will return "tac", and a call to reverse("p") will return "p".
 
-Write your solution below.
+Complete method reverse below:
 
-/** Returns the name of the owner of the dog
- *  whose name is given. Returns null if the dog is not found.
- *  Precondition:  No two dogs in the kennel have the same name.
- *  @param name the name of the dog to find
- *  @return the name of the specified dog's owner;
- *  null, if no dog with the specified name is in the kennel
+/** Returns a string whose characters are in reverse order of str.
+ *  Precondition:  str is not null.
+ *  @param str the given string
+ *  @return str in reverse order
  */
-public String findOwner(String name)
+public static String reverse(String str)
 
 Part (b)
-Write the DogKennel method moveTogether. This method consolidates the kennel by moving dogs so that the dogs are in adjacent slots starting at index 0, with no empty slots between any two dogs. After the kennel is consolidated, the dogs should be in the same order as they were before consolidation.
+Write the StringUtil method changeToPalindrome, that returns a palindrome string from its parameter str as follows:
 
-Note: You may not use a temporary array in your solution!
+If str contains an even number of characters, n, the returned string is a palindrome that consists of the first n/2 characters of str, followed by characters that create a palindrome. For example, changeToPalindrome("balk") returns "baab", and changeToPalindrome("oh") returns "oo".
 
-For example, suppose a kennel has dogs in the following slots. (In the diagram, each dog has the name of its owner shown underneath the dog's name.)
-0		1		2		3		4		5
-_____________________________________________________________________________________
-“Fido”		null		“Coco”		null		“Jake”		null
-“Tom Smith”			“Joe Doe”			“Sam Jed”
-_____________________________________________________________________________________
+If str contains an odd number of characters, n, the returned string is a palindrome that consists of the first (n/2)+1 characters of str, followed by characters that create a palindrome. For example, changeToPalindrome("break") returns "brerb", and changeToPalindrome("oha") returns "oho".
 
-This should be the arrangement after moveTogether is called:
+Note that in each case---for n even or n odd---the string returned by changeToPalindrome contains n characters, and that the last n/2 characters of the parameter string have been replaced.
 
-0		1		2		3		4		5
-_____________________________________________________________________________________
-“Fido”		“Coco”		“Jake”		null		null		null
-“Tom Smith”	“Joe Doe”	“Sam Jed”			
-_____________________________________________________________________________________
+Complete method changeToPalindrome below.
 
-Write method moveTogether below.
-
-/** Consolidates the kennel by moving dogs so that the dogs are in
- *  adjacent slots, starting at index 0, with no empty slot between
- *  any two dogs.
- *  Postcondition: The order of dogs is the same as before consolidation.
+/** Returns a palindrome string, one that reads the same from
+ *  right to left and left to right.
+ *  Precondition:  str is not null and has n characters, n>=1.
+ *  Postcondition:
+ *   - Returned string is a palindrome with n characters, whose opening
+ *     characters are the first n/2 characters of str if n is even.
+ *   - If n is odd, the opening characters of the returned string
+ *     are the first (n/2 + 1) characters of str.
+ *  @param str the given string
+ *  @return a palindrome version of str
  */
-public void moveTogether()
+public static String changeToPalindrome(String str)
+
+Part (c)
+Write the StringUtil method changeArrayToPalindromes. This method replaces each string in its array parameter with a palindrome, as described in part (b). For example, if arr is {"hat", "frame", "Mary"}, a call to changeArrayToPalindromes(arr) should change arr to {"hah", "frarf", "MaaM"}. In writing changeArrayToPalindromes, your method must use the StringUtil method changeToPalindrome. You may assume changeToPalindrome works as specified, regardless of what you wrote in part (b).
+
+Complete method changeArrayToPalindromes below.
+
+/** Changes each element of arr to be a palindrome.
+ *  Precondition:  arr is an array of non-null strings.
+ *  Postcondition: Each element of arr is a palindrome, as discussed in part (b).
+ *  @param arr the array to be changed
+ */
+public static void changeArrayToPalindromes(String[] arr)
+
+Part (d)
+Consider the following incomplete Matrix class, which represents a two-dimensional matrix of strings.
+
+public class Matrix
+{
+	private String [][] mat;
+
+	public Matrix (String [][] m)
+	{ mat = m; }
+
+	/** Changes each element of mat to be a palindrome.
+	 *  Precondition:  mat contains non-null strings.
+	 *  Postcondition: Each element of mat is a palindrome whose first
+	 *               half is the first half of the original string.
+	 */
+	public void changeMatrixToPalindromes()
+	{ /* to be implemented in part (d) */ }
+
+	//Other instance variables, constructors, and methods are not shown.
+}
+
+Write the matrix method changeMatrixToPalindromes. This method converts each string in mat to a palindrome, as specified in part (b).
+
+For example,if mat1 refers to a Matrix object, then the call mat1.changeMatrixToPalindromes() will change the matrix as shown below:
+	�
+
+In writing changeMatrixToPalindromes, you must call the changeArrayToPalindromes method in part (c). Assume that changeArrayToPalindromes works correctly regardless of what you wrote in part (c).
+
+Complete method changeMatrixToPalindromes below.
+
+/** Changes each element of mat to be a palindrome.
+ *  Precondition:  mat contains non-null strings.
+ *  Postcondition: Each element of mat is a palindrome whose first
+ *               half is the first half of the original string.
+ */
+public void changeMatrixToPalindromes()
 
 <\code><\pre>
