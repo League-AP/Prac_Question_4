@@ -1,0 +1,98 @@
+<pre><code>
+
+An item is any object sold in a store. Items have a description, item ID number, and price, and can be represented with the following class.
+
+public class Item
+{
+	private String description;
+	private String itemID;
+	private double price;
+
+	//The class has accessor methods getDescription, getItemID,
+	//and getPrice, which, respectively, return the description,
+	//itemID, and price of this Item.
+
+	/** Replace the current first character of itemID with newStartChar.
+	 *  @param newStartChar the new first character of the
+	 *  modified itemID for this item
+	 */
+	public void changeID(String newStartChar)
+	{ /* to be implemented in part (a) */ }
+
+	/** Raise price by specified amount.
+	 *  @param amount the increase in price
+	 */
+	public void raisePrice(double amount)
+	{
+		price += amount;
+	}
+
+	//Constructors and some methods are not shown.
+}
+
+A store manipulates a collection of items. The information for a store is contained in the Store class shown below.
+
+public class Store
+{
+	/** The list of items */
+	private List<Item> allItems;
+
+	/** Raise the price of all items by the specified amount.
+	 *  Postcondition: The price of each item has been raised by amt.
+	 *  @param amt the amount by which the price of each
+	 *  item should be raised
+	 */
+	public void raiseAllPrices(double amt)
+	{ /* to be implemented in part (b) */ }
+
+	/** Remove all items with the specified description.
+	 *  Postcondition: All items with the given description have
+	 *               been removed.
+	 *  @param descr the description of items to be removed
+	 */
+	public void removeAll(String descr)
+	{ /* to be implemented in part (c) */ }
+
+	//There may be constructors, methods, and variables not shown.
+}
+
+Part (a)
+The string itemID of an Item consists of a letter followed by at least two digits. Here are some possible item IDs of items: H46, A123, and G5721.
+
+You should write the Item method changeID. Method changeID changes the ID of an Item by replacing the starting letter with a new letter provided in the string parameter. Here are some examples:
+
+�
+
+Complete method changeID below.
+
+/** Replace the current first character of itemID with newStartChar.
+ *  @param newStartChar the new first character of the
+ *  modified itemID for this item
+ */
+public void changeID(String newStartChar)
+
+Part (b)
+Write the Store method raiseAllPrices. This method should change the price of each Item to be its current price plus the amount specified in the parameter.
+
+Complete method raiseAllPrices below.
+
+/** Raise the price of all items by the specified amount.
+ *  Postcondition: The price of each item has been raised by amt.
+ *  @param amt the amount by which the price of each
+ *  item should be raised
+ */
+public void raiseAllPrices(double amt)
+
+Part (c)
+Write the Store method removeAll. Method removeAll removes from the allItems list all items with the description specified in the parameter. For example, a call to removeAll("screwdriver") would remove all the screwdriver items from the list. Note that there could be many screwdriver items in the list, with the same description but different prices and item IDs.
+
+Complete method removeAll below.
+
+/** Remove all items with the specified description.
+ *  Postcondition: All items with the given description have
+ *               been removed.
+ *  @param descr the description of items to be removed
+ */
+public void removeAll(String descr)
+
+</code></pre>
