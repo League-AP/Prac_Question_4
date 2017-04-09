@@ -1,98 +1,91 @@
 <pre><code>
 
-An item is any object sold in a store. Items have a description, item ID number, and price, and can be represented with the following class.
+Consider a program that models a dog kennel. A dog may be represented with the following interface:
 
-public class Item
+public interface Dog
 {
-	private String description;
-	private String itemID;
-	private double price;
+	/** @return the dog's name */
+	String getName();
 
-	//The class has accessor methods getDescription, getItemID,
-	//and getPrice, which, respectively, return the description,
-	//itemID, and price of this Item.
-
-	/** Replace the current first character of itemID with newStartChar.
-	 *  @param newStartChar the new first character of the
-	 *  modified itemID for this item
-	 */
-	public void changeID(String newStartChar)
-	{ /* to be implemented in part (a) */ }
-
-	/** Raise price by specified amount.
-	 *  @param amount the increase in price
-	 */
-	public void raisePrice(double amount)
-	{
-		price += amount;
-	}
-
-	//Constructors and some methods are not shown.
+	/** @return the name of the dog's owner */
+	String getOwnerName();
 }
 
-A store manipulates a collection of items. The information for a store is contained in the Store class shown below.
+A dog kennel consists of n numbered slots. Each slot can hold at most one dog. The slots are indexed from 0 to n − 1. No two dogs in the kennel have the same name, but two or more dogs may have the same owner.
 
-public class Store
+The declaration of the DogKennel class is shown below.
+
+public class DogKennel
 {
-	/** The list of items */
-	private List<Item> allItems;
-
-	/** Raise the price of all items by the specified amount.
-	 *  Postcondition: The price of each item has been raised by amt.
-	 *  @param amt the amount by which the price of each
-	 *  item should be raised
+	/** The slots in the kennel. Each array element contains a
+	 *  reference to a dog that is currently occupying that slot.
+	 *  A null value indicates an empty space.
 	 */
-	public void raiseAllPrices(double amt)
+	private Dog[] slots;
+
+	/** Returns the name of the owner of the dog
+	 *  whose name is given. Returns null if the dog is not found.
+	 *  Precondition:  No two dogs in the kennel have the same name.
+	 *  @param name the name of the dog to find
+	 *  @return the name of the specified dog's owner;
+	 *  null, if no dog with the specified name is in the kennel
+	 */
+	public String findOwner(String name)
+	{ /* to be implemented in part (a) */ }
+
+	/** Consolidates the kennel by moving dogs so that the dogs are in
+	 *  adjacent slots, starting at index 0, with no empty slot between
+	 *  any two dogs.
+	 *  Postcondition: The order of dogs is the same as before consolidation.
+	 */
+	public void moveTogether()
 	{ /* to be implemented in part (b) */ }
 
-	/** Remove all items with the specified description.
-	 *  Postcondition: All items with the given description have
-	 *               been removed.
-	 *  @param descr the description of items to be removed
-	 */
-	public void removeAll(String descr)
-	{ /* to be implemented in part (c) */ }
-
-	//There may be constructors, methods, and variables not shown.
+	//There may be instance variables, constructors and methods
+	//that are not shown.
 }
 
 Part (a)
-The string itemID of an Item consists of a letter followed by at least two digits. Here are some possible item IDs of items: H46, A123, and G5721.
+Write the DogKennel method findOwner, which returns the name of the owner of the dog whose name is specified. Method findOwner should return null if the given dog is not found.
 
-You should write the Item method changeID. Method changeID changes the ID of an Item by replacing the starting letter with a new letter provided in the string parameter. Here are some examples:
+Write your solution below.
 
-<img src="https://github.com/League-level5/Prac_Question_1/blob/gh-pages/chart.png?raw=true"><\img>
-
-Complete method changeID below.
-
-/** Replace the current first character of itemID with newStartChar.
- *  @param newStartChar the new first character of the
- *  modified itemID for this item
+/** Returns the name of the owner of the dog
+ *  whose name is given. Returns null if the dog is not found.
+ *  Precondition:  No two dogs in the kennel have the same name.
+ *  @param name the name of the dog to find
+ *  @return the name of the specified dog's owner;
+ *  null, if no dog with the specified name is in the kennel
  */
-public void changeID(String newStartChar)
+public String findOwner(String name)
 
 Part (b)
-Write the Store method raiseAllPrices. This method should change the price of each Item to be its current price plus the amount specified in the parameter.
+Write the DogKennel method moveTogether. This method consolidates the kennel by moving dogs so that the dogs are in adjacent slots starting at index 0, with no empty slots between any two dogs. After the kennel is consolidated, the dogs should be in the same order as they were before consolidation.
 
-Complete method raiseAllPrices below.
+Note: You may not use a temporary array in your solution!
 
-/** Raise the price of all items by the specified amount.
- *  Postcondition: The price of each item has been raised by amt.
- *  @param amt the amount by which the price of each
- *  item should be raised
+For example, suppose a kennel has dogs in the following slots. (In the diagram, each dog has the name of its owner shown underneath the dog's name.)
+0		1		2		3		4		5
+__________________________________________________________
+“Fido”		null		“Coco”	null		“Jake”		null
+“Tom Smith”			“Joe Doe”			“Sam Jed”
+__________________________________________________________
+
+This should be the arrangement after moveTogether is called:
+
+0		1		2		3		4		5
+__________________________________________________________
+“Fido”		“Coco”	“Jake”		null		null		null
+“Tom Smith”	“Joe Doe”	“Sam Jed”			
+__________________________________________________________
+
+Write method moveTogether below.
+
+/** Consolidates the kennel by moving dogs so that the dogs are in
+ *  adjacent slots, starting at index 0, with no empty slot between
+ *  any two dogs.
+ *  Postcondition: The order of dogs is the same as before consolidation.
  */
-public void raiseAllPrices(double amt)
-
-Part (c)
-Write the Store method removeAll. Method removeAll removes from the allItems list all items with the description specified in the parameter. For example, a call to removeAll("screwdriver") would remove all the screwdriver items from the list. Note that there could be many screwdriver items in the list, with the same description but different prices and item IDs.
-
-Complete method removeAll below.
-
-/** Remove all items with the specified description.
- *  Postcondition: All items with the given description have
- *               been removed.
- *  @param descr the description of items to be removed
- */
-public void removeAll(String descr)
+public void moveTogether()
 
 <\code><\pre>
