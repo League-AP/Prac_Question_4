@@ -1,128 +1,95 @@
 <pre><code>
 
-This question manipulates a string, a one-dimensional array, and a two-dimensional array. In parts (a) and (b), you will write methods to reverse a string and to create a palindrome from a given string. (A palindrome is a string that reads the same from right to left as from left to right. For example, "atoyota" and "dad" are palindromes.) In parts (c) and (d), you will replace the strings in a one-dimensional array and a two-dimensional array with palindrome versions of the strings.
+An AirplaneFlight object is used to keep track of seats booked on a flight, using a two-dimensional array of strings. An empty string denotes a seat that is still available; otherwise, the string is the passenger's name.
 
-Consider the following incomplete StringUtil class, which contains three static methods: reverse, changeToPalindrome, and changeArrayToPalindromes.
+After a flight is fully booked, it maintains a waiting list of names. If any passenger cancels, the first name on the waiting list will replace the person that cancels.
 
-public class StringUtil
+The seats on a small airplane can be pictured as follows:
+	<br><img src="Capture.PNG"><br>
+
+Suppose a two-dimensional array, seats, represents the status of seats on a flight. If seats[1][2] equals the empty string, that seat is available; otherwise, seats[1][2] contains the name of a passenger and is not available.
+
+On this flight, seats[0][0]...seats[0][3] represent the front row of an airplane.
+
+The information for a flight is contained in the AirplaneFlight class as declared below.>
+
+public class AirplaneFlight
 {
-	/** Returns a string whose characters are in reverse order of str.
-	 *  Precondition:  str is not null.
-	 *  @param str the given string
-	 *  @return str in reverse order 
+	/** The seats on the airplane.
+	 * 	Each seat contains the name of a passenger
+	 * 	An empty string signals that the seat is available.
 	 */
-	public static String reverse(String str)
-	{ /* to be implemented in part(a) */}
+	private String[][] seats;
 
-	/** Returns a palindrome string, one that reads the same from
-	 *  right to left and left to right.
-	 *  Precondition:  str is not null and has n characters, n>=1.
-	 *  Postcondition:
-	 *   - Returned string is a palindrome with n characters, whose opening
-	 *     characters are the first n/2 characters of str if n is even.
-	 *   - If n is odd, the opening characters of the returned string
-	 *     are the first (n/2 + 1) characters of str.
-	 *  @param str the given string
-	 *  @return a palindrome version of str
+	public static final int SEATS_PER_ROW = 4;
+	public static final int NUM_ROWS = < some positive integer >;
+
+	/** The list of names on the waiting list. */
+	private List<String> waitList;
+
+	/** @return true if seat with specified seat
+	 *  number is available; false otherwise
+	 *  @param rowNum the row number
+	 *  @param seatNum the seat number
 	 */
-	public static String changeToPalindrome(String str)
+	public boolean isAvailable(int rowNum, int seatNum)
+	{ /* implementation not shown */ }
+
+	/** @return true if seat with specified row and seat
+	 *  number is a window seat; false otherwise
+	 *  @param seatNum the seat number
+	 */
+	public boolean isWindowSeat(int seatNum)
+	{ /* implementation not shown */ }
+
+	/** Reserves window seat for passenger with specified
+	 *  name, if a window seat is available.
+	 *  Returns true if a window seat was found; false otherwise.
+	 *  @param name the passenger name
+	 *  @return true if a window seat was found; false otherwise
+	 */
+	public boolean bookWindowSeat(String name)
+	{ /* to be implemented in part (a) */ }
+
+	/** Finds the seat that is currently reserved for the passenger
+	 *  with the specified name. Replaces that name with the name of
+	 *  the first person on the waiting list.
+	 *  Precondition:  The specified name represents a passenger on
+	 *               this flight.
+	 *  @param name the name to be replaced
+	 */
+	public void cancelAndReplace(String name)
 	{ /* to be implemented in part (b) */ }
 
-	/** Changes each element of arr to be a palindrome.
-	 *  Precondition:  arr is an array of non-null strings.
-	 *  Postcondition: Each element of arr is a palindrome, as discussed in part (b).
-	 *  @param arr the array to be changed
-	 */
-	public static void changeArrayToPalindromes(String[] arr)
-	{ /* to be implemented in part (c) */ }
-
-	//Other methods not shown.
+	//There may be instance variables, constructors, and methods
+	//not shown.
 }
 
 Part (a)
-Write the StringUtil method reverse, which reverses the characters of its String parameter. For example, a call to reverse("cat") will return "tac", and a call to reverse("p") will return "p".
+Write the AirplaneFlight method bookWindowSeat. This method searches through all the seats to see if it can find an available window seat. If it does, it reserves that seat for the name provided in its parameter, and it returns true. If there is no window seat available, the method returns false.
 
-Complete method reverse below:
+Complete method bookWindowSeat below.
 
-/** Returns a string whose characters are in reverse order of str.
- *  Precondition:  str is not null.
- *  @param str the given string
- *  @return str in reverse order
+/** Reserves window seat for passenger with specified
+ *  name, if a window seat is available.
+ *  Returns true if a window seat was found; false otherwise.
+ *  @param name the passenger name
+ *  @return true if a window seat was found; false otherwise
  */
-public static String reverse(String str)
+public boolean bookWindowSeat(String name)
 
 Part (b)
-Write the StringUtil method changeToPalindrome, that returns a palindrome string from its parameter str as follows:
+Write the AirplaneFlight method cancelAndReplace. Method cancelAndReplace searches through the seats to locate the name in its parameter. It then removes the first name in the waitList and replaces the name in the seat with that name from the waitList. Note that a precondition of this method is that the name given in the parameter is in one of the seats, and that waitList contains at least one name.
 
-If str contains an even number of characters, n, the returned string is a palindrome that consists of the first n/2 characters of str, followed by characters that create a palindrome. For example, changeToPalindrome("balk") returns "baab", and changeToPalindrome("oh") returns "oo".
+Complete method cancelAndReplace below.
 
-If str contains an odd number of characters, n, the returned string is a palindrome that consists of the first (n/2)+1 characters of str, followed by characters that create a palindrome. For example, changeToPalindrome("break") returns "brerb", and changeToPalindrome("oha") returns "oho".
-
-Note that in each case---for n even or n odd---the string returned by changeToPalindrome contains n characters, and that the last n/2 characters of the parameter string have been replaced.
-
-Complete method changeToPalindrome below.
-
-/** Returns a palindrome string, one that reads the same from
- *  right to left and left to right.
- *  Precondition:  str is not null and has n characters, n>=1.
- *  Postcondition:
- *   - Returned string is a palindrome with n characters, whose opening
- *     characters are the first n/2 characters of str if n is even.
- *   - If n is odd, the opening characters of the returned string
- *     are the first (n/2 + 1) characters of str.
- *  @param str the given string
- *  @return a palindrome version of str
+/** Finds the seat that is currently reserved for the passenger
+ *  with the specified name. Replaces that name with the name of
+ *  the first person on the waiting list.
+ *  Precondition:  The specified name represents a passenger on
+ *               this flight.
+ *  @param name the name to be replaced
  */
-public static String changeToPalindrome(String str)
-
-Part (c)
-Write the StringUtil method changeArrayToPalindromes. This method replaces each string in its array parameter with a palindrome, as described in part (b). For example, if arr is {"hat", "frame", "Mary"}, a call to changeArrayToPalindromes(arr) should change arr to {"hah", "frarf", "MaaM"}. In writing changeArrayToPalindromes, your method must use the StringUtil method changeToPalindrome. You may assume changeToPalindrome works as specified, regardless of what you wrote in part (b).
-
-Complete method changeArrayToPalindromes below.
-
-/** Changes each element of arr to be a palindrome.
- *  Precondition:  arr is an array of non-null strings.
- *  Postcondition: Each element of arr is a palindrome, as discussed in part (b).
- *  @param arr the array to be changed
- */
-public static void changeArrayToPalindromes(String[] arr)
-
-Part (d)
-Consider the following incomplete Matrix class, which represents a two-dimensional matrix of strings.
-
-public class Matrix
-{
-	private String [][] mat;
-
-	public Matrix (String [][] m)
-	{ mat = m; }
-
-	/** Changes each element of mat to be a palindrome.
-	 *  Precondition:  mat contains non-null strings.
-	 *  Postcondition: Each element of mat is a palindrome whose first
-	 *               half is the first half of the original string.
-	 */
-	public void changeMatrixToPalindromes()
-	{ /* to be implemented in part (d) */ }
-
-	//Other instance variables, constructors, and methods are not shown.
-}
-
-Write the matrix method changeMatrixToPalindromes. This method converts each string in mat to a palindrome, as specified in part (b).
-
-For example,if mat1 refers to a Matrix object, then the call mat1.changeMatrixToPalindromes() will change the matrix as shown below:
-	<img src="https://github.com/League-level5/Prac_Question_3/blob/gh-pages/chart3.png?raw=true">
-	<img src="https://github.com/League-level5/Prac_Question_3/blob/gh-pages/chart4.png?raw=true">
-
-In writing changeMatrixToPalindromes, you must call the changeArrayToPalindromes method in part (c). Assume that changeArrayToPalindromes works correctly regardless of what you wrote in part (c).
-
-Complete method changeMatrixToPalindromes below.
-
-/** Changes each element of mat to be a palindrome.
- *  Precondition:  mat contains non-null strings.
- *  Postcondition: Each element of mat is a palindrome whose first
- *               half is the first half of the original string.
- */
-public void changeMatrixToPalindromes()
+public void cancelAndReplace(String name)
 
 </code></pre>
